@@ -3,16 +3,15 @@ const mongoose = require('mongoose')
 var cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
-app.use(cors({
-    origin: 'http://localhost:3000', 
-  }));
-app.use('/api/add', require("./routes/advisor.route"))
+app.use(cors());
+app.use(express.json({extended: true}))
+app.use('/api', require("./routes/advisor.route"))
 
 async function start() {
     try {
-        await mongoose.connect('mongodb+srv://adviqo:adviqo@cluster0.zlizxf3.mongodb.net/?retryWrites=true&w=majority', {
+        await mongoose.connect('mongodb+srv://adviqo:adviqo@cluster0.zlizxf3.mongodb.net/adviqo', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })

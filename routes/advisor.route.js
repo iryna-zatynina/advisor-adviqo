@@ -22,17 +22,6 @@ router.post("/add/advisors", async (req, res) => {
   }
 });
 
-// router.get('/advisors', async (req, res) => {
-//     try {
-//         const advisors = await Advisor.find()
-//         setTimeout(() => {
-//             res.json(advisors);
-
-//         }, 1000);
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
 router.get("/advisors", async (req, res) => {
   try {
     const { limit, language, status, sortBy } = req.query;

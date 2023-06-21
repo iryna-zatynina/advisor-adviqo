@@ -35,7 +35,7 @@ router.post("/add/advisors", async (req, res) => {
 // })
 router.get("/advisors", async (req, res) => {
   try {
-    const { limit, language, status } = req.query;
+    const { limit, language, status, sortBy } = req.query;
     const filters = {};
     if (language) {
       filters.language = language;
@@ -44,7 +44,12 @@ router.get("/advisors", async (req, res) => {
       filters.status = status;
     }
 
-    const advisorsQuery = Advisor.find(filters);
+    const advisorsQuery = Advisor.find(filters)
+
+    if (sortBy) {
+        advisorsQuery.sort({ reviews: sortBy === 'ascending' ? 1 : -1 });
+      }
+    
     const advisorsCountQuery = Advisor.countDocuments(filters);
 
     const [advisors, advisorsCount] = await Promise.all([
